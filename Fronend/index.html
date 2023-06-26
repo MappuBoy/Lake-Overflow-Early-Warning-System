@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lake Overflow Early Warning System</title>
+  <link rel="stylesheet" href="bootstrap-5.2.0-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    #Header {
+      position: absolute;
+      z-index: 10;
+      width: 100%;
+      height: 8px;
+    }
+
+    #navbar {
+      padding: 8px 0;
+
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5em;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      color: rgb(255, 174, 0);
+    }
+
+    .nav-item {
+      font-weight: 600;
+      text-transform: uppercase;
+      padding-left: 50px;
+    }
+
+    .nav-link {
+      color: white;
+      letter-spacing: 2px;
+      font-size: 1em;
+      font-weight: 700;
+    }
+
+    .home {
+      position: relative;
+      background: url("assets/images/flood.jpg");
+      max-height: 100vh;
+      min-width: 50vh;
+      background-size: cover;
+      background-position: center;
+      padding: 280px 0 220px;
+    }
+
+    .home h2 {
+      font-size: 2.6em;
+      color: rgb(220, 234, 73);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    #topic {
+      margin-top: 1em;
+      padding: 0;
+      font-size: 16px;
+      color: rgb(251, 30, 30);
+      font-weight: bold;
+      padding-bottom: 25px;
+    }
+
+    .home .book {
+      background: #718093;
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+
+    #click {
+      margin-top: 1em;
+      padding: 0;
+      font-size: 16px;
+      color: #dcdde1;
+      font-weight: 400;
+      padding-bottom: 25px;
+    }
+
+    .about {
+      margin: 0;
+      padding: 10px;
+      position: relative;
+      background-color: aliceblue;
+
+    }
+
+    .about-img {
+      width: 100%;
+      height: 100%;
+
+    }
+
+    .about-text h2 {
+      width: 200%;
+      font-weight: bold;
+      justify-content: center;
+    }
+
+    .about-text p {
+      width: 200%;
+      font-weight: 400;
+
+    }
+
+    .overServices {
+      position: relative;
+      justify-items: center;
+      padding: 10px;
+      background-color: aliceblue;
+    }
+
+    .card-img-top {
+      width: 75%;
+      height: 250px;
+      margin: 10%;
+    }
+
+    .bold {
+      font-weight: 400;
+      color: blue;
+    }
+
+    .footer {
+      position: relative;
+      justify-items: center;
+      padding: 20px;
+      color: #dcdde1;
+      background-color: rgb(52, 59, 66);
+    }
+
+    .modal {
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 500px;
+      height: 500px;
+      justify-content: center;
+      background-color: white;
+    }
+
+    #mymodel3 {
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      background: url("assets/images/car-rent-sale-agent-car-rent-sale-agent-auto-dealer-leasing-web-banner-background-template-103944303.jpg");
+    }
+
+    .model-header {
+      background-color: gold;
+      color: white;
+      padding: 15px;
+    }
+
+    .model-body {
+      padding: 20px;
+    }
+
+    #front {
+      margin: 10px;
+    }
+
+    #middleRow {
+      margin: 20px;
+    }
+
+    #back {
+      margin: 10px;
+    }
+
+    #rentAcar {
+      color: gold;
+      font-weight: bold;
+    }
+
+    .table {
+      color: gold;
+    }
+
+    .chat-bar-collapsible {
+      position: fixed;
+      bottom: 0;
+      right: 50px;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .collapsible {
+      background-color: rgb(243, 247, 42);
+      color: black;
+      cursor: pointer;
+      padding: 18px;
+      width: 350px;
+      text-align: left;
+      outline: none;
+      font-size: 18px;
+      border-radius: 10px 10px 0px 0px;
+      border: 3px solid white;
+      border-bottom: none;
+    }
+
+    .content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #f1f1f1;
+    }
+
+    .full-chat-block {
+      width: 350px;
+      background: white;
+      text-align: center;
+      overflow: auto;
+      scrollbar-width: none;
+      height: max-content;
+      transition: max-height 0.2s ease-out;
+    }
+
+    .outer-container {
+      min-height: 500px;
+      bottom: 0%;
+      position: relative;
+    }
+
+    .chat-container {
+      max-height: 500px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      scroll-behavior: smooth;
+      hyphens: auto;
+    }
+
+    .chat-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chat-bar-input-block {
+      display: flex;
+      float: left;
+      box-sizing: border-box;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+      background-color: rgb(235, 235, 235);
+      border-radius: 10px 10px 0px 0px;
+      padding: 10px 0px 10px 10px;
+    }
+
+    .chat-bar-icons {
+      display: flex;
+      justify-content: space-evenly;
+      box-sizing: border-box;
+      width: 25%;
+      float: right;
+      font-size: 20px;
+    }
+
+    #chat-icon:hover {
+      opacity: .7;
+    }
+
+    /* Chat bubbles */
+
+    #userInput {
+      width: 75%;
+    }
+
+    .input-box {
+      float: left;
+      border: none;
+      box-sizing: border-box;
+      width: 100%;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 16px;
+      color: #000;
+      background-color: white;
+      outline: none
+    }
+
+    .userText {
+      color: white;
+      font-family: Helvetica;
+      font-size: 16px;
+      font-weight: normal;
+      text-align: right;
+      clear: both;
+    }
+
+    .userText span {
+      line-height: 1.5em;
+      display: inline-block;
+      background: #5ca6fa;
+      padding: 10px;
+      border-radius: 8px;
+      border-bottom-right-radius: 2px;
+      max-width: 80%;
+      margin-right: 10px;
+      animation: floatup .5s forwards
+    }
+
+    .botText {
+      color: #000;
+      font-family: Helvetica;
+      font-weight: normal;
+      font-size: 16px;
+      text-align: left;
+    }
+
+    .botText span {
+      line-height: 1.5em;
+      display: inline-block;
+      background: #e0e0e0;
+      padding: 10px;
+      border-radius: 8px;
+      border-bottom-left-radius: 2px;
+      max-width: 80%;
+      margin-left: 10px;
+      animation: floatup .5s forwards
+    }
+
+    @keyframes floatup {
+      from {
+        transform: translateY(14px);
+        opacity: .0;
+      }
+
+      to {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width:600px) {
+      .full-chat-block {
+        width: 100%;
+        border-radius: 0px;
+      }
+
+      .chat-bar-collapsible {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+      }
+
+      .collapsible {
+        width: 100%;
+        border: 0px;
+        border-top: 3px solid white;
+        border-radius: 0px;
+      }
+
+      .btn-close {
+        background-color: transparent;
+        border: 0;
+        font-size: 20px;
+        cursor: pointer;
+        position: absolute;
+        right: 2px;
+        top: 2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!--Navbar-->
+  <section id="Header">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="navbar">
+      <div class="container">
+        <a href="#" class="navbar-brand">Lake Overflow Early Warning System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+      </div>
+    </nav>
+  </section>
+
+  <!--Homepage-->
+  <section class="home">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <h2>Focused on safety of socity , wherever you stay we direct you to safe</h2>
+          <p id="topic">Don't panic when there is a heavy raining just wait till you get a message from us.<br>
+            Then pack your imoprtant stuf and move to safe environment.<br> We guild you to safe places.
+            <br><br>Register with us, we will make sure your safety
+          </p>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mymodel1"> Register
+          </button>
+          <div class="container mt-1 mb-9" id="rentAcar">
+            <div class="container mt-1 mb-4">
+              <div class="modal" id="mymodel2">
+                <div class="model-dialog">
+                  <div class="model-content">
+                    <div class="model-header">
+                      <h5 id="driverTopic">Registration</h5>
+                    </div>
+                    <div class="model-body">
+                      <form class="row g-3" id="driverForm">
+                        <div class="col-md-6">
+                          <label for="txtdriverid" class="form-label">NIC Number </label>
+                          <input type="text" class="form-control" id="txtdriverid" name="droverLicenceNumber">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="txtfullname" class="form-label">Full Name</label>
+                          <input type="text" class="form-control" id="txtfullname" name="fullname">
+                        </div>
+                        <div class="col-12">
+                          <label for="txtdrivertype" class="form-label">Tp Number</label>
+                          <input type="text" class="form-control" id="txtdrivertype" name="drivertype">
+                        </div>
+                        <div class="col-12">
+                          <label for="txttpNumer" class="form-label">Current Address</label>
+                          <input type="text" class="form-control" id="txttpNumer" name="tpNumer">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="txtdriverAddress" class="form-label">District</label>
+                          <input type="text" c`lass="form-control" id="txtdriverAddress" name="address">
+                        </div>
+                        <div class="col-md-6">
+                          <label for="txtdriveravailability" class="form-label">Near Lake/Dam Name</label>
+                          <input type="text" class="form-control" id="txtdriveravailability" name="availability">
+                        </div>
+                        <div class="col-12">
+                          <button type="submit" class="btn btn-success" id="btnsaveDriver">Submit</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--<a href=""class="book" id="rentCarPage" data-bs-toggle="modal" data-bs-target="#mymodel1">Register</a>
+        <div class="modal" id="mymodel3">
+          <div class="model-dialog">
+            <div class="model-content">
+              <div class="model-header">
+                <h5 id="lbcustomerTopic">User Registration</h5>
+              </div>
+              <div class="model-body">
+                <form class="row g-3">
+                  <div class="col-md-4">
+                    <label for="ordercustID" class="form-label">Input NIC</label>
+                    <input type="text" class="form-control" id="ordercustID">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="orderVehicleID"class="form-label">Vehicle Numberplate</label>
+                    <input type="text" class="form-control" id="orderVehicleID" >
+                  </div>
+                  <div class="col-md-4">
+                    <label for="orderDriverName" class="form-label">Driver license number</label>
+                    <input type="text" class="form-control" id="orderDriverName">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="ordercustName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="ordercustName">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="orderVehicleBrand" class="form-label">Vehicle Brand</label>
+                    <input type="text" class="form-control" id="orderVehicleBrand">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="orderDriversname" class="form-label">Driver Name</label>
+                    <input type="text" class="form-control" id="orderDriversname">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="orderCustTp" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" id="orderCustTp">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="orderVehicleType" class="form-label">Vehicle Type</label>
+                    <input type="text" class="form-control" id="orderVehicleType">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="orderDriversdrivertype" class="form-label">Driver type</label>
+                    <input type="text" class="form-control" id="orderDriversdrivertype">
+                  </div>
+                </form>
+                <div class="middle" id="front">
+                  <br><br>
+                  <div class="row">
+                    <div class="col-md-4"  id="middleRow">
+                      <form class="col">
+                        <div class="row">
+                          <label for="orderPrechesDate" class="form-label">Perches date</label>
+                          <input type="text" class="form-control" id="orderPrechesData">
+                        </div>
+                        <div class="row">
+                          <label for="txtorderreturnDate" class="form-label">Return date</label>
+                          <input type="text" class="form-control" id="txtorderreturnDate">
+                        </div>
+                        <div class="row">
+                          <label for="txtorderDriversdrivertype" class="form-label">Driver type</label>
+                          <input type="text" class="form-control" id="txtorderDriversdrivertype">
+                        </div>
+                      </form>
+                    </div>
+                    
+                    <div class="col-md-3" id="back">
+                      <form class="col">
+                        <div class="row" >
+                          <label for="orderprechesdate" class="form-label">Perches Total</label>
+                          <input type="text" class="form-control" id="orderprechesdate">
+                        </div>
+                        <div class="row">
+                          <label for="orderReturndate" class="form-label">Payment</label>
+                          <input type="text" class="form-control" id="orderReturndate">
+                        </div>
+                      </form>
+                        <br>
+                        <a href=""class="book" id="perches">Register</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>  
+        </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--About----->
+  <section id="about" class="about section-padding">
+    <div class="container container-lg">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 col-12 ps-lg-5 mt-md-5">
+          <div class="about-img">
+            <img src="assets/images/desk.jpg" alt="" class="img-fluid ">
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-12 ps-lg-5 mt-md-5">
+          <div class="about-text">
+            <h2>Why you need to register to our system </h2>
+            <br>
+            <p> We do not need to tell you how you feel when there is a heavy raining and your loveonce are stay right
+              bellow the lake.<br>
+              By register to our system we will notify you when there is thread to you and your loveonce from the
+              flooding.<br>
+            </p>
+            <h5 class="card-title">How do we notify you?</h5>
+            <p><br>
+              1. We notify you when there is a plenty of time to ready to move without paniking<br>
+              2. We notify you before when there is short time to realese the water from the lake</p>
+          </div><br>
+          <button type="button" class="btn btn-dark">More infomation</button><br>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="overServices" id="service">
+    <div class="container-lg">
+      <div class="row">
+        <div class="col">
+          <div class="card-group" style="background-color:bisque ;">
+            <div class="card">
+              <img src="assets/images/cartoon-illustration-flash-flood-sign-flood-zone-sign-149406365.jpg"
+                class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">First Notification</h5>
+                <p class="card-text">The first notification is sent to the user when there is 6 hours or less before the
+                  water reach for maximum level of the lake.<br>Expected Result - <br>After reseaving this message the
+                  users can aware of the situation and start packing there important stuff without paniking.the flooding
+                  might or might not happen because in this level is close to 1 feet before water realesing is happen.
+                  So the releasing of water might not happen because of the raining can stop in this level </p>
+                <br>
+                <p class="bold">Get aware of the situation without paniking</p>
+                </p>
+              </div>
+            </div>
+            <div class="card">
+              <img src="assets/images/sms-alert-icon-2.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Second Nofitication</h5>
+                <p class="card-text">The second notification is sent to the user when there is 40 minutes before the
+                  water realease from the lake.<br>Expected Result - <br>After reseaving this message the users can get
+                  the conform notification the flooding actuvaly can happen because in this level whatever raining stops
+                  or not the water realesing is happen. because water level is dangerously close to endurance level
+                  (notification sent before water level reaching 1/8 feet close to releasing level ). </p>
+                <br>
+                <p class="bold">Keep calm and start evacuating to safe places !</p>
+              </div>
+              <div class="container mt-1 mb-4">
+                <div class="modal" id="mymodel1">
+                  <div class="model-dialog">
+                    <div class="model-content">
+                      <div class="model-header">
+                        <h5 id="lddriverTopic">Registration</h5>
+                        <button class="btn-close"></button>
+                      </div>
+                      <div class="model-body">
+                        <form class="row g-3" id="vehicleForm">
+                          <div class="col-md-6">
+                            <label for="txtvehicleID" class="form-label">NIC Number</label>
+                            <input type="text" class="form-control" id="txtvehicleID" name="numberPlateNumber">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="txtvehicleBrand" class="form-label">Mobile Number</label>
+                            <input type="text" class="form-control" id="txtvehicleBrand" name="brand">
+                          </div>
+                          <div class="col-12">
+                            <label for="txttype" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="txttype" name="type">
+                          </div>
+                          <div class="col-12">
+                            <label for="txtpassengersnumber" class="form-label">Current Address</label>
+                            <input type="text" class="form-control" id="txtpassengersnumber" name="numberofPassengers">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="txttransmitionType" class="form-label">Near Lake/Dam Name</label>
+                            <input type="text" class="form-control" id="txttransmitionType" name="transmissionType">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="txtfuelType" class="form-label">Number of Family Members</label>
+                            <input type="text" class="form-control" id="txtfuelType" name="fuelType">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="txtcolour" class="form-label">Distance from Lake</label>
+                            <input type="text" class="form-control" id="txtcolour" name="colour">
+                          </div>
+                          <div class="col-md-6">
+                            <label for="txtavailability" class="form-label">Closest Town</label>
+                            <input type="text" class="form-control" id="txtavailability" name="availability">
+                          </div>
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-success" id="btnsaveVehicle">Submit User
+                              Details</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <img src="assets/images/download1.jfif" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Why we create the system</h5>
+                <p class="card-text">In Sri Lanka still not using proper alert system to notify the people when there is
+                  a water release from the lake or dam. So police or first responders anauncing the issue physicaly but
+                  we create this solution to notify people by simple SMS<br>
+                  How can we do it ? <br>By using a two sensors and artificail inteligent module to automatically notify
+                  the people that registered to the solution .First SMS sends when the first sensor triger and after
+                  that second message sends when the second sensor trigers. </p>
+                <p class="bold">We will guide you when it's the darkest time to you</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h5>Contact us</h5>
+          <img src="assets/images/download.jfif" alt="" class="img-fluid ">
+          <p><br>
+            Call : +94112777777<br>
+            Email : pituvaraliyange@gmail.com<br>
+            Address : 267/B,5th Lane,Shnathipura, Thalawathugoda.<br>
+          </p>
+        </div>
+        <div class="col">
+          <h5>Give us your opinion</h5>
+          <form class="row g-3" onsubmit="sendEmail(); reset(); return false;">
+            <div class="col-md">
+              <label for="inputEmail4" class="form-label">Email</label>
+              <input type="email" class="form-control" id="inputEmail4">
+            </div>
+            <label for="floatingTextarea2">Comments</label>
+            <textarea class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+            <button type="submit" class="btn btn-success" id="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+  <!-- CHAT BAR BLOCK -->
+  <div class="chat-bar-collapsible">
+    <i class="fa-solid fa-message-bot" id="chat-button"></i>
+    <button id="chat-button" type="button" class="collapsible">How can we help you ?
+      <i id="chat-icon" style="color: black;" class="fa fa-fw fa-comments-o"></i>
+    </button>
+
+    <div class="content">
+      <div class="full-chat-block">
+        <!-- Message Container -->
+        <div class="outer-container">
+          <div class="chat-container">
+            <!-- Messages -->
+            <div id="chatbox">
+              <h5 id="chat-timestamp"></h5>
+              <p id="botStarterMessage" class="botText"><span>Loading...</span></p>
+            </div>
+
+            <!-- User input box -->
+            <div class="chat-bar-input-block">
+              <div id="userInput">
+                <input id="textInput" class="input-box" type="text" name="msg"
+                  placeholder="Tap 'Enter' to send a message">
+                <p></p>
+              </div>
+
+              <div class="chat-bar-icons">
+                <i id="chat-icon" style="color: crimson;" class="fa fa-fw fa-heart" onclick="heartButton()"></i>
+                <i id="chat-icon" style="color: #333;" class="fa fa-fw fa-send" onclick="sendButton()"></i>
+              </div>
+            </div>
+
+            <div id="chat-bar-bottom">
+              <p></p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <script>
+    function sendEmail() {
+      Email.send({
+        Host: "smtp.elasticemail.com",
+        Username: "malith.navod.amarasinghe@gmail.com",
+        Password: "D3201EEDBD78ADBC1EA675CFAD9796A54C74",
+        To: document.getElementById("inputEmail4").value, 
+        From:'malith.navod.amarasinghe@gmail.com', 
+        Subject: "New Comment from Early Warning System",
+        Body: "Comment" + document.getElementById("floatingTextarea2").value
+      }).then(
+        message => alert(message)
+      );
+    }
+  </script>
+  <script src="bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
+  <script src="assets/jquery-3.6.0.min.js"></script>
+  <script>
+
+    //save customer
+    $("#btnSaveCustomer").click(function () {
+      saveCustomer();
+    });
+
+    function saveCustomer() {
+      var data = $("#customerForm").serialize();
+      $.ajax({
+        url: "http://localhost:8080/Car_Rental_System_master_war/customer",
+        method: "POST",
+        data: data,
+        success: function (res) {
+          if (res.code == 200) {
+            alert("Successfully Customer Registered");
+          }
+        },
+        error: function (ob) {
+          alert(ob.responseJSON.message);
+        }
+      });
+    }
+
+    $("#btnsaveVehicle").click(function () {
+      saveVehicle();
+    });
+
+    function saveVehicle() {
+      var data = $("#vehicleForm").serialize();
+      $.ajax({
+        url: "http://localhost:8080/Car_Rental_System_master_war/vehicle",
+        method: "POST",
+        data: data,
+        success: function (res) {
+          if (res.code == 200) {
+            alert("Successfully Vehicle Registered");
+          }
+        },
+        error: function (ob) {
+          alert(ob.responseJSON.message);
+        }
+      });
+    }
+
+    $("#btnsaveDriver").click(function () {
+      saveDriver();
+    });
+    function saveDriver() {
+      var data = $("#driverForm").serialize();
+      $.ajax({
+        url: "http://localhost:8080/Car_Rental_System_master_war/driver",
+        method: "POST",
+        data: data,
+        success: function (res) {
+          if (res.code == 200) {
+            alert("Successfully Driver Registered");
+          }
+        },
+        error: function (ob) {
+          alert(ob.responseJSON.message);
+        }
+      });
+    }
+  </script>
+  <script>
+    function getBotResponse(input) {
+      //rock paper scissors
+      if (input == "rock") {
+        return "paper";
+      } else if (input == "paper") {
+        return "scissors";
+      } else if (input == "scissors") {
+        return "rock";
+      }
+
+      // Simple responses
+      if (input == "hello") {
+        return "Hello there!";
+      } else if (input == "goodbye") {
+        return "Talk to you later!";
+      }
+      else if (input == "details") {
+        return "This is a early warning system";
+      } else {
+        return "Try asking something else!";
+      }
+    }</script>
+  <script>
+    // Collapsible
+    var coll = document.getElementsByClassName("collapsible");
+
+    for (let i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+
+        var content = this.nextElementSibling;
+
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+
+      });
+    }
+
+    function getTime() {
+      let today = new Date();
+      hours = today.getHours();
+      minutes = today.getMinutes();
+
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+
+      let time = hours + ":" + minutes;
+      return time;
+    }
+
+    // Gets the first message
+    function firstBotMessage() {
+      let firstMessage = "How's it going?"
+      document.getElementById("botStarterMessage").innerHTML = '<p class="botText"><span>' + firstMessage + '</span></p>';
+
+      let time = getTime();
+
+      $("#chat-timestamp").append(time);
+      document.getElementById("userInput").scrollIntoView(false);
+    }
+
+    firstBotMessage();
+
+    // Retrieves the response
+    function getHardResponse(userText) {
+      let botResponse = getBotResponse(userText);
+      let botHtml = '<p class="botText"><span>' + botResponse + '</span></p>';
+      $("#chatbox").append(botHtml);
+
+      document.getElementById("chat-bar-bottom").scrollIntoView(true);
+    }
+
+    //Gets the text text from the input box and processes it
+    function getResponse() {
+      let userText = $("#textInput").val();
+
+      if (userText == "") {
+        userText = "I love Code Palace!";
+      }
+
+      let userHtml = '<p class="userText"><span>' + userText + '</span></p>';
+
+      $("#textInput").val("");
+      $("#chatbox").append(userHtml);
+      document.getElementById("chat-bar-bottom").scrollIntoView(true);
+
+      setTimeout(() => {
+        getHardResponse(userText);
+      }, 1000)
+
+    }
+
+    // Handles sending text via button clicks
+    function buttonSendText(sampleText) {
+      let userHtml = '<p class="userText"><span>' + sampleText + '</span></p>';
+
+      $("#textInput").val("");
+      $("#chatbox").append(userHtml);
+      document.getElementById("chat-bar-bottom").scrollIntoView(true);
+
+      //Uncomment this if you want the bot to respond to this buttonSendText event
+      // setTimeout(() => {
+      //     getHardResponse(sampleText);
+      // }, 1000)
+    }
+
+    function sendButton() {
+      getResponse();
+    }
+
+    function heartButton() {
+      buttonSendText("Heart clicked!")
+    }
+
+    // Press enter to send a message
+    $("#textInput").keypress(function (e) {
+      if (e.which == 13) {
+        getResponse();
+      }
+    });
+  </script>
+
+</body>
+
+</html>
